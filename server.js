@@ -3,15 +3,16 @@ const app = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Contact = require("./rback/models/contact");
+require("dotenv").config();
 
 const dns = require("dns");
 dns.setServers(["8.8.8.8"]);
 app.use(cors());
 app.use(express.json());
-const MONGO_URL = "mongodb+srv://port:portfolio@cluster2.m0oblli.mongodb.net/?appName=Cluster2";
+const MONGOURL = process.env.MONGOURL;
 
 mongoose
-  .connect(MONGO_URL)
+  .connect(MONGOURL)
   .then(() => {
     console.log("MongoDB connected");
   })
@@ -47,6 +48,8 @@ app.post("/contact", async (req, res) => {
     res.status(500).json({ error: "Error saving contact message" });
   }
 });
-app.listen(5000, () => {
-    console.log("server running on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`server running on port ${PORT}`);
 });
