@@ -22,6 +22,7 @@ mongoose
   });
   app.get("/debug-db", async (req, res) => {
     res.json({ 
+      host: mongoose.connection.host,
       dbname: mongoose.connection.name,
       contactCollection: 
     Contact.collection.name,
@@ -52,7 +53,7 @@ app.post("/contact", async (req, res) => {
     const savedContact = await newContact.save();
     console.log("saved:", savedContact);
 
-    res.status(201).json(savedContact);
+    return res.status(201).json(savedContact);
   } catch (err) {
     console.log("Error saving contact:", err);
     res.status(500).json({ error: "Error saving contact message" });
