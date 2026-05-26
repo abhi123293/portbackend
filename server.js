@@ -52,7 +52,7 @@ app.post("/contact", async (req, res) => {
 
     const savedContact = await newContact.save();
     console.log("saved:", savedContact);
-    await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+   const telegramResponse = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -62,6 +62,9 @@ app.post("/contact", async (req, res) => {
     text: `New Portfolio Contact\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
   }),
 });
+
+const telegramData = await telegramResponse.json();
+console.log("TELEGRAM:", telegramData);
 
     return res.status(201).json(savedContact);
   } catch (err) {
