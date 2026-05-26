@@ -50,6 +50,7 @@ app.post("/contact", async (req, res) => {
     });
 
     const savedContact = await newContact.save();
+    console.log("saved:", savedContact);
 
     res.status(201).json(savedContact);
   } catch (err) {
