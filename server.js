@@ -20,7 +20,14 @@ mongoose
   .catch((err) => {
     console.log("MongoDB connection error:", err);
   });
-
+  app.get("/debug-db", async (req, res) => {
+    res.json({ 
+      dbname: mongoose.connection.name,
+      contactCollection: 
+    Contact.collection.name,
+      readyState: mongoose.connection.readyState
+    });
+  });
 app.get("/contact", async (req, res) => {
   try {
     const contacts = await Contact.find();
