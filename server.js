@@ -10,6 +10,7 @@ dns.setServers(["8.8.8.8"]);
 app.use(cors());
 app.use(express.json());
 const MONGOURL = process.env.MONGOURL;
+console.log("MONGO URL:", MONGOURL);
 
 mongoose
   .connect(MONGOURL)
